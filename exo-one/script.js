@@ -1,46 +1,68 @@
-// hepl-mmi/meet-canvas-animation - exo-one
+"use strict";
 
-( function( CanvApp ) {
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-    "use strict";
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-    var oApp,
-        aColorSequences = [
-            [ "#ffffaa", "#aaffff", "#ffaaaa", "#aaffaa" ],
-            [ "#aaffaa", "#ffffaa", "#aaffff", "#ffaaaa" ],
-            [ "#ffaaaa", "#aaffaa", "#ffffaa", "#aaffff" ],
-            [ "#aaffff", "#ffaaaa", "#aaffaa", "#ffffaa" ]
-        ];
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-    CanvApp.prototype.setup = function() {
-        this.animate();
-    };
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-    CanvApp.prototype.animate = function() {
-        var iCurrentSecond = ( new Date() ).getSeconds();
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-        this.drawRectangles.apply( this, aColorSequences[ iCurrentSecond % 4 ] );
+(function (CanvApp) {
+    var _oApp;
 
-        window.requestAnimationFrame( this.animate.bind( this ) );
-    };
+    var oApp = void 0,
+        aColorSequences = [["#ffffaa", "#aaffff", "#ffaaaa", "#aaffaa"], ["#aaffaa", "#ffffaa", "#aaffff", "#ffaaaa"], ["#ffaaaa", "#aaffaa", "#ffffaa", "#aaffff"], ["#aaffff", "#ffaaaa", "#aaffaa", "#ffffaa"]];
 
-    CanvApp.prototype.drawRectangles = function( sColorOne, sColorTwo, sColorThree, sColorFour ) {
-        var oContext = this.context;
+    var MyCanvApp = function (_CanvApp) {
+        _inherits(MyCanvApp, _CanvApp);
 
-        oContext.fillStyle = sColorOne;
-        oContext.fillRect( 0, 0, this.width / 2, this.height / 2 );
-        oContext.fillStyle = sColorTwo;
-        oContext.fillRect( this.width / 2, 0, this.width / 2, this.height / 2 );
-        oContext.fillStyle = sColorFour;
-        oContext.fillRect( 0, this.height / 2, this.width / 2, this.height / 2 );
-        oContext.fillStyle = sColorThree;
-        oContext.fillRect( this.width / 2, this.height / 2, this.width / 2, this.height / 2 );
-    };
+        function MyCanvApp() {
+            _classCallCheck(this, MyCanvApp);
 
-    oApp = new CanvApp( "#my-canvas" );
+            return _possibleConstructorReturn(this, (MyCanvApp.__proto__ || Object.getPrototypeOf(MyCanvApp)).apply(this, arguments));
+        }
 
-    oApp.drawRectangles.apply( oApp, aColorSequences[ 0 ] );
+        _createClass(MyCanvApp, [{
+            key: "setup",
+            value: function setup() {
+                this.animate();
+            }
+        }, {
+            key: "animate",
+            value: function animate() {
+                var iCurrentSecond = new Date().getSeconds();
+
+                this.drawRectangles.apply(this, _toConsumableArray(aColorSequences[iCurrentSecond % 4]));
+
+                window.requestAnimationFrame(this.animate.bind(this));
+            }
+        }, {
+            key: "drawRectangles",
+            value: function drawRectangles(sColorOne, sColorTwo, sColorThree, sColorFour) {
+                var oContext = this.context,
+                    iHalfWidth = this.width / 2,
+                    iHalfHeight = this.height / 2;
+
+                oContext.fillStyle = sColorOne;
+                oContext.fillRect(0, 0, iHalfWidth, iHalfHeight);
+                oContext.fillStyle = sColorTwo;
+                oContext.fillRect(iHalfWidth, 0, iHalfWidth, iHalfHeight);
+                oContext.fillStyle = sColorFour;
+                oContext.fillRect(0, iHalfHeight, iHalfWidth, iHalfHeight);
+                oContext.fillStyle = sColorThree;
+                oContext.fillRect(iHalfWidth, iHalfHeight, iHalfWidth, iHalfHeight);
+            }
+        }]);
+
+        return MyCanvApp;
+    }(CanvApp);
+
+    oApp = new MyCanvApp("#my-canvas");
+
+    (_oApp = oApp).drawRectangles.apply(_oApp, _toConsumableArray(aColorSequences[0]));
 
     oApp.setup();
-
-} )( window.CanvApp );
+})(window.CanvApp);
